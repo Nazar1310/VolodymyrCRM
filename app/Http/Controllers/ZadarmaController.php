@@ -9,10 +9,10 @@ class ZadarmaController extends Controller {
 
     public function webhook(Request $request) {
         $requestData = $request->all();
-        $phone = $requestData['contact.Phone[0]'];
-        $email = $requestData['contact.Email[0]'];
-        $name = $requestData['contact.Name.First'].' '.$requestData['contact.Name.Last'];
-        $comment = $requestData['form-id'];
+        $phone = $requestData['data']['contact.Phone[0]'];
+        $email = $requestData['data']['contact.Email[0]'];
+        $name = $requestData['data']['contact.Name.First'].' '.$requestData['data']['contact.Name.Last'];
+        $comment = $requestData['data']['form-id'];
         Customer::updateOrCreate([
             'phone' => $phone,
             'email' => $email,
