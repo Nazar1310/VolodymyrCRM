@@ -24,5 +24,5 @@ Route::group(['prefix' => '/profile'], function(){
     Route::get('/edit-password/{user}', 'App\Http\Controllers\IndexController@editPassword')->name('users-edit-password');
     Route::post('/edit-password/{user}', 'App\Http\Controllers\IndexController@updatePassword');
 });
-Route::get('/zadarma-webhook', 'App\Http\Controllers\ZadarmaController@webhook');
+Route::post('/zadarma-webhook', 'App\Http\Controllers\ZadarmaController@webhook');
 Auth::routes();
