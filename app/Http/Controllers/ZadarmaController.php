@@ -8,18 +8,11 @@ use Illuminate\Http\Request;
 class ZadarmaController extends Controller {
 
     public function webhook(Request $request) {
-        Customer::updateOrCreate([
-            'phone' => 'phone',
-            'email' => 'email',
-        ],[
-            'name' => 'name',
-            'comment' => json_encode($request->all()),
-        ]);
-        return true;
-        $phone = $request->data_field_comp_k0f12clt;
-        $email = $request->data_contact_email_0_;
-        $name = $request->data_contact_name_first?$request->data_contact_name_first.($request->data_contact_name_last?" $request->data_contact_name_last":''):null;
-        $comment = $request->data_contact_id;
+        $requestData = $request->all();
+        $phone = $requestData['contact.Phone[0]'];
+        $email = $requestData['contact.Email[0]'];
+        $name = $requestData['contact.Name.First'].' '.$requestData['contact.Name.Last'];
+        $comment = $requestData['form-id'];
         Customer::updateOrCreate([
             'phone' => $phone,
             'email' => $email,
@@ -52,6 +45,7 @@ class ZadarmaController extends Controller {
             $messageData = ['content' => $postData['comment']];
             $this->makePostRequest($addFeedMethod, $messageData);
         }
+        return true;
     }
     private function makePostRequest($method, $params) {
         //Change userKey and secret to the ones from your personal account
