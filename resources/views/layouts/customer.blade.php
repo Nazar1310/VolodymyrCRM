@@ -19,5 +19,11 @@
                 <span class="input-group-text">{{$customer->phone}}</span>
             </div>
         </div>
+        <div class="input-group input-group-sm">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Comment:</span>
+                <span class="input-group-text">{{$customer->comment}}</span>
+            </div>
+        </div>
     </div>
 </div>
