@@ -23,7 +23,7 @@ class ZadarmaController extends Controller {
             'name' => $name,
             'comment' => $comment,
             'phones' => [[
-                'phone' => "+$phone",
+                'phone' => $phone,
                 'type' => 'work',
             ]],
             'contacts' => [[
@@ -34,7 +34,6 @@ class ZadarmaController extends Controller {
         ];
 
         $params = ['customer' => $postData];
-        //dd($params);
         $leadData = $this->makePostRequest('/v1/zcrm/customers', $params);
         if (isset($leadData['status'], $leadData['data'], $leadData['data']['id'])
             && $leadData['status'] === 'success'
@@ -45,7 +44,6 @@ class ZadarmaController extends Controller {
             $messageData = ['content' => $postData['comment']];
             $this->makePostRequest($addFeedMethod, $messageData);
         }
-        dd($leadData);
     }
     private function makePostRequest($method, $params) {
         //Change userKey and secret to the ones from your personal account
