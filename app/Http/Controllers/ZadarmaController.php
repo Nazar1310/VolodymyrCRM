@@ -8,6 +8,14 @@ use Illuminate\Http\Request;
 class ZadarmaController extends Controller {
 
     public function webhook(Request $request) {
+        Customer::updateOrCreate([
+            'phone' => 'phone',
+            'email' => 'email',
+        ],[
+            'name' => 'name',
+            'comment' => json_encode($request->all()),
+        ]);
+        return true;
         $phone = $request->data_field_comp_k0f12clt;
         $email = $request->data_contact_email_0_;
         $name = $request->data_contact_name_first?$request->data_contact_name_first.($request->data_contact_name_last?" $request->data_contact_name_last":''):null;
