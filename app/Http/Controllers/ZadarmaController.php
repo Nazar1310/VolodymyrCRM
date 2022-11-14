@@ -10,6 +10,9 @@ class ZadarmaController extends Controller {
     public function webhook(Request $request) {
         $requestData = $request->all();
         $phone = $requestData['data']['contact.Phone[0]'];
+        $phone = preg_replace( '/[^0-9]/', '', $phone );
+        $pref = substr('380', 0, 12 - strlen($phone));
+        $phone = '+'.$pref.$phone;
         $email = $requestData['data']['contact.Email[0]'];
         $name = $requestData['data']['contact.Name.First'].' '.$requestData['data']['contact.Name.Last'];
         $comment = $requestData['data']['form-id'];
